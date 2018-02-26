@@ -1,0 +1,5 @@
+{
+    "player": {
+        "velocity": 200 // pixels per second
+    }
+}
