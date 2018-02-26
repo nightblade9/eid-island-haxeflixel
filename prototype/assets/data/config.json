@@ -1,5 +1,6 @@
 {
     "player": {
         "velocity": 200 // pixels per second
-    }
+    },
+    "wallThickness": 8
 }
