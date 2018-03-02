@@ -42,7 +42,7 @@ class MapTraversalState extends HelixState
 		this.player.collideResolve(this.walls);
 		this.player.collideResolve(this.people);
 
-		for (i in 0 ... 5)
+		for (i in 0 ... Config.get("npcs").npcsOnMainMap)
 		{
 			this.addPerson();
 		}
