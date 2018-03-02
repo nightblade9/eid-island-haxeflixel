@@ -15,7 +15,8 @@ import helix.core.HelixSprite;
 using helix.core.HelixSpriteFluentApi;
 import helix.data.Config;
 
-import entities.Person;
+import entities.map.Person;
+import entities.map.Player;
 
 class MapTraversalState extends HelixState
 {
@@ -28,10 +29,7 @@ class MapTraversalState extends HelixState
 	{
 		super.create();
 
-		this.player = 
-			new HelixSprite(null, {width: 48, height: 48, colour: FlxColor.WHITE })
-			.moveWithKeyboard(Config.get("player").velocity);
-		
+		this.player = new Player();
 		this.player.move((FlxG.width - player.width) / 2, (FlxG.height - player.height) / 2);
 		
 		var wallThickness = Config.get("wallThickness");

@@ -1,4 +1,4 @@
-package entities;
+package entities.map;
 
 import helix.core.HelixSprite;
 import helix.data.Config;
