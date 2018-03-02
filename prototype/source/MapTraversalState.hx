@@ -43,9 +43,8 @@ class MapTraversalState extends HelixState
 
 		this.player.collideResolve(this.walls);
 		this.player.collideResolve(this.people);
-		FlxTween.tween(player, {x:0, y:0}, 1);
 
-		for (i in 0 ... 1)
+		for (i in 0 ... 5)
 		{
 			this.addPerson();
 		}

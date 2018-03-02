@@ -2,5 +2,11 @@
     "player": {
         "velocity": 200 // pixels per second
     },
-    "wallThickness": 8
+
+    "wallThickness": 8,
+
+    "npcs": {
+        "walkMinDelaySeconds": 2,
+        "walkMaxDelaySeconds": 5
+    }
 }
