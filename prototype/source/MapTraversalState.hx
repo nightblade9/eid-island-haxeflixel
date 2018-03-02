@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
+import flixel.math.FlxRandom;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
@@ -13,10 +14,14 @@ import helix.core.HelixSprite;
 using helix.core.HelixSpriteFluentApi;
 import helix.data.Config;
 
+import entities.Person;
+
 class MapTraversalState extends HelixState
 {
 	private var player:HelixSprite;
 	private var walls = new FlxGroup();
+	private var people = new FlxGroup();
+	private var random = new FlxRandom();
 
 	override public function create():Void
 	{
@@ -36,6 +41,12 @@ class MapTraversalState extends HelixState
 		this.addWall(FlxG.width - wallThickness, 0, wallThickness, FlxG.height);
 
 		this.player.collideResolve(this.walls);
+		this.player.collideResolve(this.people);
+
+		for (i in 0 ... 5)
+		{
+			this.addPerson();
+		}
 	}
 
 	override public function update(elapsed:Float):Void
@@ -49,5 +60,14 @@ class MapTraversalState extends HelixState
 		wall.move(x, y);
 		wall.collisionImmovable();
 		this.walls.add(wall);
+	}
+
+	private function addPerson():Void
+	{
+		var person = new Person();
+		person.x = random.int(0, Std.int(FlxG.width - person.width));
+		person.y = random.int(0, Std.int(FlxG.height - person.height));
+		person.collisionImmovable();
+		this.people.add(person);
 	}
 }
