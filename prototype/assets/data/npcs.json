@@ -25,5 +25,14 @@
                 "audio": "assets/sounds/speech/kh-thank-you.ogg"
             }
         ]
-    }
+    },
+    "z": {
+        "sprite": "assets/images/z-npc.png",
+        "speech": [
+            {
+                "text": "Hello, I am super funny. Bye bye!",
+                "audio": "assets/sounds/speech/z-funny.ogg"
+            }
+        ]
+    }    
 }

@@ -56,6 +56,7 @@ class MapTraversalState extends HelixState
 		this.addPerson(npcsJson.iq);
 		this.addPerson(npcsJson.as);
 		this.addPerson(npcsJson.kh);
+		this.addPerson(npcsJson.z);
 
 		//this.generateWater();
 	}
