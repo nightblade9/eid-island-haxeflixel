@@ -4,6 +4,7 @@
     },
 
     "wallThickness": 8,
+    "waterThickness": 75,
 
     "npcs": {
         "walkMinDelaySeconds": 2,
