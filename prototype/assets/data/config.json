@@ -9,7 +9,7 @@
     "npcs": {
         "walkMinDelaySeconds": 2,
         "walkMaxDelaySeconds": 5,
-        "npcsOnMainMap": 3
+        "npcsOnMainMap": 4
     },
 
     "fishing": {
@@ -29,7 +29,7 @@
             "buoyancy": 125
         },
         "reel": {
-            "width": 8,
+            "width": 16,
             "catchAmount": 1,
             "intertiaAmount": 0.5
         }
