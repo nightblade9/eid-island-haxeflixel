@@ -16,5 +16,14 @@
                 "audio": "assets/sounds/speech/as-like-gift.ogg"
             }
         ]
+    },
+    "kh": {
+        "sprite": "assets/images/kh-npc.png",
+        "speech": [
+            {
+                "text": "Thank you!",
+                "audio": "assets/sounds/speech/kh-thank-you.ogg"
+            }
+        ]
     }
 }
