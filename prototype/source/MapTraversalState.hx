@@ -6,7 +6,6 @@ import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxRandom;
 import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 
@@ -19,6 +18,8 @@ import helix.data.Config;
 import entities.map.Person;
 import entities.map.Player;
 import entities.map.Water;
+
+import MovementHelper;
 
 class MapTraversalState extends HelixState
 {
@@ -88,7 +89,12 @@ class MapTraversalState extends HelixState
 		person.x = random.int(0, Std.int(FlxG.width - person.width));
 		person.y = random.int(0, Std.int(FlxG.height - person.height));
 		person.collisionImmovable();
-		person.walkToNewDestination();
+
+		var destinationX = this.random.int(0, Std.int(FlxG.width - this.width));
+    	var destinationY = this.random.int(0, Std.int(FlxG.height - this.height));
+
+		MovementHelper.walkToNewDestination(person, destinationX, destinationY, Config.get("npcs").walkSpeed,
+			Config.get("npcs").walkMinDelaySeconds, Config.get("npcs").walkMaxDelaySeconds);
 		this.people.add(person);
 	}
 

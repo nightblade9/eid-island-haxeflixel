@@ -7,6 +7,7 @@
     "waterThickness": 32,
 
     "npcs": {
+        "walkSpeed": 200,
         "walkMinDelaySeconds": 2,
         "walkMaxDelaySeconds": 5,
         "npcsOnMainMap": 4
