@@ -7,5 +7,14 @@
                 "audio": "assets/sounds/speech/it-works.ogg"
             }
         ]
+    },
+    "as": {
+        "sprite": "assets/images/as-npc.png",
+        "speech": [
+            {
+                "text": "I like your gift.",
+                "audio": "assets/sounds/speech/as-like-gift.ogg"
+            }
+        ]
     }
 }
