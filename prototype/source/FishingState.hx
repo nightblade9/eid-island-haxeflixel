@@ -10,6 +10,8 @@ import flixel.util.FlxColor;
 
 class FishingState extends HelixState
 {
+    private static inline var PADDING:Int = 8;
+
     public static var minY(default, null):Float;
     public static var maxY(default, null):Float;
 
@@ -30,6 +32,9 @@ class FishingState extends HelixState
 
         var fish = new Fish();
         fish.move(bar.x, bar.y + (bar.height / 2) - fish.height);
+
+        var reel = new ReelBar(bar, fish, hook);
+        reel.move(bar.x + bar.width + PADDING, bar.y + bar.height);
     }
 }
 
@@ -84,5 +89,43 @@ class FishingHook extends HelixSprite {
         } else if (this.y > FishingState.maxY - this.height) {
             this.y = FishingState.maxY - this.height;
         }
+    }
+}
+
+class ReelBar extends HelixSprite {
+    
+    public var progress(default, null):Int;
+    private var bar:HelixSprite;
+    private var fish:Fish;
+    private var hook:FishingHook;
+
+    public function new(bar:HelixSprite, fish:Fish, hook:FishingHook) {
+        this.bar = bar;
+        this.fish = fish;
+        this.hook = hook;
+
+        super(null, {
+            width: Config.get("fishing").reel.width,
+            height: 1,
+            colour: FlxColor.MAGENTA
+        });
+
+        this.progress = 0;
+    }
+
+    override public function update(elapsedSeconds:Float):Void
+    {
+        if (this.fish.y >= this.hook.y && this.fish.y <= this.hook.y + this.hook.height)
+        {
+            trace("CATCHING");
+            this.setProgress(this.progress + Config.get("fishing").reel.catchAmount);
+        }
+    }
+
+    public function setProgress(progress:Float)
+    {
+        this.progress = Std.int(Math.min(progress, this.bar.height));
+        this.setGraphicSize(Std.int(this.bar.width), this.progress);
+        this.y = this.bar.y + this.bar.height - progress;
     }
 }

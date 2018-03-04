@@ -27,6 +27,10 @@
             "height": 60,
             "gravity": 100,
             "buoyancy": 125
+        },
+        "reel": {
+            "width": 8,
+            "catchAmount": 1
         }
     }
 }
