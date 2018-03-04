@@ -126,7 +126,8 @@ class ReelBar extends HelixSprite {
     public function setProgress(progress:Float)
     {
         this.progress = Std.int(Math.min(progress, this.bar.height));
-        this.setGraphicSize(Std.int(this.bar.width), this.progress);
-        this.y = this.bar.y + this.bar.height - progress;
+        this.setGraphicSize(Std.int(Config.get("fishing").reel.width), this.progress);
+        this.y = this.bar.y + (this.bar.height / 2) - progress;
+        this.progress = Std.int(Math.max(this.progress, 0)); // minimum zero
     }
 }
