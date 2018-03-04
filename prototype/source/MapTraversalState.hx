@@ -46,12 +46,9 @@ class MapTraversalState extends HelixState
 		this.player.collideResolve(this.waters);
 		this.player.collideResolve(this.people);		
 
-		for (i in 0 ... Config.get("npcs").npcsOnMainMap)
-		{
-			this.addPerson();
-		}
+		this.addPerson(haxe.Json.parse(openfl.Assets.getText("assets/data/npcs.json")).iq);
 
-		this.generateWater();
+		//this.generateWater();
 	}
 
 	override public function update(elapsed:Float):Void
@@ -75,9 +72,9 @@ class MapTraversalState extends HelixState
 		this.waters.add(water);
 	}
 
-	private function addPerson():Void
+	private function addPerson(data:Dynamic):Void
 	{
-		var person = new Person(this.random);
+		var person = new Person(this.random, data);
 		person.x = random.int(0, Std.int(FlxG.width - person.width));
 		person.y = random.int(0, Std.int(FlxG.height - person.height));
 		person.collisionImmovable();

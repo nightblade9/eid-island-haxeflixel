@@ -1,0 +1,11 @@
+{
+    "iq": {
+        "sprite": "assets/images/iq-npc.png",
+        "speech": [
+            {
+                "text": "It works!",
+                "audio": "assets/sounds/speech/it-works.ogg"
+            }
+        ]
+    }
+}
