@@ -4,7 +4,7 @@
         "speech": [
             {
                 "text": "It works!",
-                "audio": "assets/sounds/speech/it-works.ogg"
+                "audio": "assets/sounds/speech/iq-noise.ogg"
             }
         ]
     },
