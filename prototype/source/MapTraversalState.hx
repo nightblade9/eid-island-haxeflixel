@@ -17,6 +17,7 @@ import helix.data.Config;
 
 import entities.map.Person;
 import entities.map.Player;
+import entities.map.Water;
 
 class MapTraversalState extends HelixState
 {
@@ -68,7 +69,7 @@ class MapTraversalState extends HelixState
 
 	private function addWater(x:Float, y:Float, width:Int, height:Int):Void
 	{
-		var water = new HelixSprite(null, {width: width, height:height, colour: FlxColor.CYAN });
+		var water = new Water(width, height);
 		water.move(x, y);
 		water.collisionImmovable();
 		this.waters.add(water);

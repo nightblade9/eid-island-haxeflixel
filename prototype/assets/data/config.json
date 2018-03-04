@@ -4,11 +4,27 @@
     },
 
     "wallThickness": 8,
-    "waterThickness": 75,
+    "waterThickness": 32,
 
     "npcs": {
         "walkMinDelaySeconds": 2,
         "walkMaxDelaySeconds": 5,
         "npcsOnMainMap": 3
+    },
+
+    "fishing": {
+        "bar": {
+            "width": 48,
+            "height": 300
+        },
+        "fish": {
+            "width": 32,
+            "height": 32,
+            "moveVelocity": 500
+        },
+        "hook": {
+            "width": 40,
+            "height": 60
+        }
     }
 }
