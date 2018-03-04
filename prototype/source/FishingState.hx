@@ -117,8 +117,9 @@ class ReelBar extends HelixSprite {
     {
         if (this.fish.y >= this.hook.y && this.fish.y <= this.hook.y + this.hook.height)
         {
-            trace("CATCHING");
             this.setProgress(this.progress + Config.get("fishing").reel.catchAmount);
+        } else {
+            this.setProgress(this.progress - Config.get("fishing").reel.intertiaAmount);
         }
     }
 

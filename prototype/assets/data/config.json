@@ -30,7 +30,8 @@
         },
         "reel": {
             "width": 8,
-            "catchAmount": 1
+            "catchAmount": 1,
+            "intertiaAmount": 0.5
         }
     }
 }
