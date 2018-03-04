@@ -12,6 +12,7 @@ import flixel.util.FlxColor;
 
 import helix.core.HelixState;
 import helix.core.HelixSprite;
+import helix.core.HelixText;
 using helix.core.HelixSpriteFluentApi;
 import helix.data.Config;
 
@@ -21,16 +22,20 @@ import entities.map.Water;
 
 class MapTraversalState extends HelixState
 {
+	private static inline var FONT_SIZE:Int = 36;
+
 	private var player:HelixSprite;
 	private var walls = new FlxGroup();
 	private var people = new FlxGroup();
 	private var waters = new FlxGroup();
 
 	private var random = new FlxRandom();
+	private var speechText:HelixText;
 
 	override public function create():Void
 	{
 		super.create();
+		this.speechText = new HelixText(0, 0, "", FONT_SIZE);
 
 		this.player = new Player();
 		this.player.move((FlxG.width - player.width) / 2, (FlxG.height - player.height) / 2);
@@ -78,7 +83,7 @@ class MapTraversalState extends HelixState
 
 	private function addPerson(data:Dynamic):Void
 	{
-		var person = new Person(this.random, data);
+		var person = new Person(this.random, data, this.speechText);
 		person.x = random.int(0, Std.int(FlxG.width - person.width));
 		person.y = random.int(0, Std.int(FlxG.height - person.height));
 		person.collisionImmovable();

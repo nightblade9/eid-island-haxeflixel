@@ -1,6 +1,7 @@
 package entities.map;
 
 import helix.core.HelixSprite;
+import helix.core.HelixText;
 using helix.core.HelixSpriteFluentApi;
 import helix.data.Config;
 
@@ -17,6 +18,7 @@ class Person extends HelixSprite
 {
     private static inline var WALK_SPEED:Int = 200;
 
+    private var speechText:HelixText;
     private var destinationX:Int;
     private var destinationY:Int;
     private var random:FlxRandom;
@@ -27,9 +29,10 @@ class Person extends HelixSprite
      *  Creates a new person from a JSON block, which includes details
      *  such as the NPC sprite, and their text&audio speech.
      */
-    public function new(random:FlxRandom, json:Dynamic)
+    public function new(random:FlxRandom, json:Dynamic, speechText:HelixText)
     {
         this.random = random;
+        this.speechText = speechText;
 
         if (json.sprite == null) {
             super(null, {width: 48, height: 48, colour: FlxColor.PINK });
@@ -68,7 +71,9 @@ class Person extends HelixSprite
     private function playRandomSpeech():Void
     {
         var item = random.getObject(this.speech);
-        trace(item.text);
+        this.speechText.x = this.x;
+        this.speechText.y = this.y - this.speechText.height;
+        this.speechText.text = item.text;
         item.audio.stop();
         item.audio.play();
     }
