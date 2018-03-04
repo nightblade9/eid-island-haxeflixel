@@ -51,14 +51,14 @@ class MapTraversalState extends HelixState
 		this.player.collideResolve(this.waters);
 		this.player.collideResolve(this.people);		
 
-		var npcsJson = haxe.Json.parse(openfl.Assets.getText("assets/data/npcs.json"));
+		var npcsJson:Array<Dynamic> = haxe.Json.parse(openfl.Assets.getText("assets/data/npcs.json"));
 
-		this.addPerson(npcsJson.iq);
-		this.addPerson(npcsJson.as);
-		this.addPerson(npcsJson.kh);
-		this.addPerson(npcsJson.z);
+		for (rawData in Reflect.fields(npcsJson)) {
+    		var npcData = Reflect.field(npcsJson, rawData);
+			this.addPerson(npcData);
+		}
 
-		//this.generateWater();
+		this.generateWater();
 	}
 
 	override public function update(elapsed:Float):Void
