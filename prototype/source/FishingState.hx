@@ -34,7 +34,8 @@ class FishingState extends HelixState
         fish.move(bar.x, bar.y + (bar.height / 2) - fish.height);
 
         var reel = new ReelBar(bar, fish, hook);
-        reel.move(bar.x + bar.width + PADDING, bar.y + bar.height);
+        reel.move(bar.x + bar.width + PADDING, 0);
+        reel.setProgress(0); // Moves Y position
     }
 }
 
@@ -127,7 +128,7 @@ class ReelBar extends HelixSprite {
     {
         this.progress = Std.int(Math.min(progress, this.bar.height));
         this.setGraphicSize(Std.int(Config.get("fishing").reel.width), this.progress);
-        this.y = this.bar.y + (this.bar.height / 2) - progress;
+        this.y = this.bar.y + this.bar.height - (0.5 * progress);
         this.progress = Std.int(Math.max(this.progress, 0)); // minimum zero
     }
 }
