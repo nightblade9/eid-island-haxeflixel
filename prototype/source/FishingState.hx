@@ -10,6 +10,9 @@ import flixel.util.FlxColor;
 
 class FishingState extends HelixState
 {
+    public static var minY(default, null):Float;
+    public static var maxY(default, null):Float;
+
     override public function create() {
         var bar = new HelixSprite(null, 
             {
@@ -22,24 +25,17 @@ class FishingState extends HelixState
         var hook = new FishingHook();
         hook.move(bar.x, bar.y + (bar.height / 2) - hook.height);
 
+        FishingState.minY = bar.y;
+        FishingState.maxY = bar.y + bar.height;
+
         var fish = new Fish();
         fish.move(bar.x, bar.y + (bar.height / 2) - fish.height);
-
-        Fish.constrain(bar.y, bar.y + bar.height - fish.height);        
     }
 }
 
 class Fish extends HelixSprite {
 
     private static var random = new FlxRandom();
-    private static var minY(default, null):Float;
-    private static var maxY(default, null):Float;
-
-    public static function constrain(minY:Float, maxY:Float):Void
-    {
-        Fish.minY = minY;
-        Fish.maxY = maxY;
-    }
 
     public function new() {
         super(null, { 
@@ -50,14 +46,16 @@ class Fish extends HelixSprite {
 
     override public function update(elapsedSeconds:Float):Void
     {
+        super.update(elapsedSeconds);
+
         var velocity = Config.get("fishing").fish.moveVelocity;
         var moveAmount = Fish.random.int(-velocity, velocity);
         this.y += (moveAmount * elapsedSeconds);
 
-        if (this.y < Fish.minY) {
-            this.y = Fish.minY;
-        } else if (this.y > Fish.maxY) {
-            this.y = Fish.maxY;
+        if (this.y < FishingState.minY) {
+            this.y = FishingState.minY;
+        } else if (this.y > FishingState.maxY - this.height) {
+            this.y = FishingState.maxY - this.height;
         }
     }
 }
@@ -68,5 +66,23 @@ class FishingHook extends HelixSprite {
                 width: Config.get("fishing").hook.width,
                 height: Config.get("fishing").hook.height,
                 colour: FlxColor.RED });
+    }
+
+    override public function update(elapsedSeconds:Float):Void
+    {
+        super.update(elapsedSeconds);
+        
+        if (FlxG.mouse.pressed)
+        {
+            this.y -= Config.get("fishing").hook.buoyancy * elapsedSeconds;
+        } else {
+            this.y += Config.get("fishing").hook.gravity * elapsedSeconds;
+        }
+
+        if (this.y < FishingState.minY) {
+            this.y = FishingState.minY;
+        } else if (this.y > FishingState.maxY - this.height) {
+            this.y = FishingState.maxY - this.height;
+        }
     }
 }

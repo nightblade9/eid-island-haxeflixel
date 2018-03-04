@@ -24,7 +24,9 @@
         },
         "hook": {
             "width": 40,
-            "height": 60
+            "height": 60,
+            "gravity": 100,
+            "buoyancy": 125
         }
     }
 }
