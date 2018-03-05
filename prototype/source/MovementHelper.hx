@@ -21,7 +21,6 @@ class MovementHelper {
     {
         var destinationX = dx();
         var destinationY = dy();
-        trace('Got destination: ${destinationX}, ${destinationY}');
         var distance = Math.sqrt(Math.pow(destinationX - sprite.x, 2) + Math.pow(destinationY - sprite.y, 2));
         var duration = distance / travelSpeed;
         
