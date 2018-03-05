@@ -32,6 +32,7 @@ class FishingState extends HelixState
 
         var fish = new Fish();
         fish.move(bar.x, bar.y + (bar.height / 2) - fish.height);
+        fish.startMoving();
 
         var reel = new ReelBar(bar, fish, hook);
         reel.move(bar.x + bar.width + PADDING, 0);
@@ -47,22 +48,17 @@ class Fish extends HelixSprite {
         super(null, { 
             width: Config.get("fishing").fish.width, 
             height: Config.get("fishing").fish.height,
-            colour: FlxColor.ORANGE });
+            colour: FlxColor.ORANGE });        
     }
 
-    override public function update(elapsedSeconds:Float):Void
-    {
-        super.update(elapsedSeconds);
-
-        var velocity = Config.get("fishing").fish.moveVelocity;
-        var moveAmount = Fish.random.int(-velocity, velocity);
-        this.y += (moveAmount * elapsedSeconds);
-
-        if (this.y < FishingState.minY) {
-            this.y = FishingState.minY;
-        } else if (this.y > FishingState.maxY - this.height) {
-            this.y = FishingState.maxY - this.height;
-        }
+    public function startMoving():Void {
+        MovementHelper.tweenToNewDestination(
+            this,
+            function() { return Std.int(this.x); },
+            function() { return random.int(Std.int(FishingState.minY), Std.int(FishingState.maxY - this.height)); },
+            Config.get("fishing").fish.moveVelocity,
+			Config.get("fishing").fish.minWaitDelay,
+            Config.get("fishing").fish.maxWaitDelay);
     }
 }
 
@@ -116,7 +112,7 @@ class ReelBar extends HelixSprite {
 
     override public function update(elapsedSeconds:Float):Void
     {
-        if (this.fish.y >= this.hook.y && this.fish.y <= this.hook.y + this.hook.height)
+        if (this.fish.y >= this.hook.y && this.fish.y + this.fish.height <= this.hook.y + this.hook.height)
         {
             this.setProgress(this.progress + Config.get("fishing").reel.catchAmount);
         } else {

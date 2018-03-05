@@ -90,10 +90,10 @@ class MapTraversalState extends HelixState
 		person.y = random.int(0, Std.int(FlxG.height - person.height));
 		person.collisionImmovable();
 
-		var destinationX = this.random.int(0, Std.int(FlxG.width - this.width));
-    	var destinationY = this.random.int(0, Std.int(FlxG.height - this.height));
+		var destinationX = function() { return this.random.int(0, Std.int(FlxG.width - this.width)); }
+    	var destinationY = function() { return this.random.int(0, Std.int(FlxG.height - this.height)); }
 
-		MovementHelper.walkToNewDestination(person, destinationX, destinationY, Config.get("npcs").walkSpeed,
+		MovementHelper.tweenToNewDestination(person, destinationX, destinationY, Config.get("npcs").walkSpeed,
 			Config.get("npcs").walkMinDelaySeconds, Config.get("npcs").walkMaxDelaySeconds);
 		this.people.add(person);
 	}

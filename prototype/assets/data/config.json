@@ -21,7 +21,9 @@
         "fish": {
             "width": 32,
             "height": 32,
-            "moveVelocity": 500
+            "moveVelocity": 100,
+            "minWaitDelay": 0.25,
+            "maxWaitDelay": 1
         },
         "hook": {
             "width": 40,
