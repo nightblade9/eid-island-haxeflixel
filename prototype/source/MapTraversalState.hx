@@ -73,7 +73,7 @@ class MapTraversalState extends HelixState
 			if (currentMap == null) {
 				currentMap = PerlinNoiseGenerator.generateNoise(100, 100);
 			} else {
-				currentMap.die();
+				currentMap.destroy();
 			}
 		} else {
 			FlxG.camera.zoom = 1;

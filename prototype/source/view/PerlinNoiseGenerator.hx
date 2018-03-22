@@ -12,12 +12,14 @@ class PerlinNoiseGenerator {
             { width: width, height: height, colour: FlxColor.BLACK });
 
         var color:FlxColor;
+        // 5-10
+        var magicConstantOne = 5 + Std.int(Math.random() * 5);
 
         for(x in 0...width) {
-            for(y in 0...height) {
-                var c = perlin.OctavePerlin(x / 8, y / 8, 0.1, 5, 0.5, 0.25);
+            for(y in 0...height) {                
+                var c = perlin.OctavePerlin(x / magicConstantOne, y / magicConstantOne, 0.1,
+                    5, 0.5, 0.25);
                 
-                trace(c);
                 if (c > 0.3 + (0.4 * distance_squared(x, y, width, height))) {
                     color = FlxColor.GREEN;
                 } else {
