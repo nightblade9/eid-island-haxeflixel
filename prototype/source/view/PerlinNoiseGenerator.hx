@@ -20,6 +20,7 @@ class PerlinNoiseGenerator {
                 var c = perlin.OctavePerlin(x / magicConstantOne, y / magicConstantOne, 0.1,
                     5, 0.5, 0.25);
                 
+                // https://gamedev.stackexchange.com/questions/80548/fast-simple-procedural-2d-island-generation
                 if (c > 0.3 + (0.4 * distance_squared(x, y, width, height))) {
                     color = FlxColor.WHITE;
                 } else {
