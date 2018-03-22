@@ -20,6 +20,8 @@ import entities.map.Person;
 import entities.map.Player;
 import entities.map.Water;
 
+import view.PerlinNoiseGenerator;
+
 import MovementHelper;
 
 class MapTraversalState extends HelixState
@@ -34,6 +36,8 @@ class MapTraversalState extends HelixState
 	private var random = new FlxRandom();
 	private var speechText:HelixText;
 
+	private var currentMap:HelixSprite;
+
 	override public function create():Void
 	{
 		super.create();
@@ -43,11 +47,6 @@ class MapTraversalState extends HelixState
 		this.player.move((FlxG.width - player.width) / 2, (FlxG.height - player.height) / 2);
 		
 		var wallThickness = Config.get("wallThickness");
-
-		// this.addWall(0, 0, FlxG.width, wallThickness);
-		// this.addWall(0, 0, wallThickness, FlxG.height);
-		// this.addWall(0, FlxG.height - wallThickness, FlxG.width, wallThickness);
-		// this.addWall(FlxG.width - wallThickness, 0, wallThickness, FlxG.height);
 
 		this.player.collideResolve(this.walls);
 		this.player.collideResolve(this.waters);
@@ -63,8 +62,6 @@ class MapTraversalState extends HelixState
     		var npcData = Reflect.field(npcsJson, rawData);
 			this.addPerson(npcData);
 		}
-		
-		this.generateWater();
 	}
 
 	override public function update(elapsed:Float):Void
@@ -73,6 +70,14 @@ class MapTraversalState extends HelixState
 
 		if (this.wasJustPressed(flixel.input.keyboard.FlxKey.M)) {
 			FlxG.camera.zoom = 0.1;
+			if (currentMap == null) {
+				currentMap = PerlinNoiseGenerator.generateNoise(100, 100);
+			} else {
+				currentMap.die();
+			}
+		} else {
+			FlxG.camera.zoom = 1;
+			currentMap = null;
 		}
 	}
 
@@ -107,14 +112,5 @@ class MapTraversalState extends HelixState
 			Config.get("npcs").walkMaxDelaySeconds);
 
 		this.people.add(person);
-	}
-
-	private function generateWater():Void
-	{
-		var waterThickness = Config.get("waterThickness");
-		this.addWater(0, 0, FlxG.width, waterThickness);
-		this.addWater(0, 0, waterThickness, FlxG.height);
-		this.addWater(0, FlxG.height - waterThickness, FlxG.width, waterThickness);
-		this.addWater(FlxG.width - waterThickness, 0, waterThickness, FlxG.height);
 	}
 }
