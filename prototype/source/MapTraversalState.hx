@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxRandom;
 import flixel.text.FlxText;
@@ -50,7 +51,11 @@ class MapTraversalState extends HelixState
 
 		this.player.collideResolve(this.walls);
 		this.player.collideResolve(this.waters);
-		this.player.collideResolve(this.people);		
+		this.player.collideResolve(this.people);
+
+		// Follow in top-down mode, LERP for smooth transitions
+		// https://haxeflixel.com/documentation/zoom-and-cameras/
+		FlxG.camera.follow(this.player, TOPDOWN, 1);
 
 		var npcsJson:Array<Dynamic> = haxe.Json.parse(openfl.Assets.getText("assets/data/npcs.json"));
 
@@ -58,13 +63,17 @@ class MapTraversalState extends HelixState
     		var npcData = Reflect.field(npcsJson, rawData);
 			this.addPerson(npcData);
 		}
-
+		
 		this.generateWater();
 	}
 
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
+
+		if (this.wasJustPressed(flixel.input.keyboard.FlxKey.M)) {
+			FlxG.camera.zoom = 0.1;
+		}
 	}
 
 	private function addWall(x:Float, y:Float, width:Int, height:Int):Void
