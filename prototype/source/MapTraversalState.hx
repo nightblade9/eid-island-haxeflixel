@@ -27,6 +27,8 @@ import MovementHelper;
 class MapTraversalState extends HelixState
 {
 	private static inline var FONT_SIZE:Int = 36;
+	private static inline var TILE_WIDTH:Int = 48;
+	private static inline var TILE_HEIGHT:Int = 48;
 
 	private var player:HelixSprite;
 	private var walls = new FlxGroup();
@@ -36,11 +38,11 @@ class MapTraversalState extends HelixState
 	private var random = new FlxRandom();
 	private var speechText:HelixText;
 
-	private var currentMap:HelixSprite;
-
 	override public function create():Void
 	{
 		super.create();
+		this.generateTiles();
+		
 		this.speechText = new HelixText(0, 0, "", FONT_SIZE);
 
 		this.player = new Player();
@@ -68,16 +70,10 @@ class MapTraversalState extends HelixState
 	{
 		super.update(elapsed);
 
-		if (this.wasJustPressed(flixel.input.keyboard.FlxKey.M)) {
+		if (this.isKeyPressed(flixel.input.keyboard.FlxKey.M)) {
 			FlxG.camera.zoom = 0.1;
-			if (currentMap == null) {
-				currentMap = PerlinNoiseGenerator.generateNoise(100, 100);
-			} else {
-				currentMap.destroy();
-			}
 		} else {
 			FlxG.camera.zoom = 1;
-			currentMap = null;
 		}
 	}
 
@@ -112,5 +108,22 @@ class MapTraversalState extends HelixState
 			Config.get("npcs").walkMaxDelaySeconds);
 
 		this.people.add(person);
+	}
+
+	private function generateTiles():Void
+	{
+		var width = 25;
+		var height = 25;
+
+		var map = PerlinNoiseGenerator.generateNoise(width, height);
+
+		for(y in 0...height) {
+			for(x in 0...width) {
+				var c = map.pixels.getPixel(x, y);
+				var colour = c > 0 ? FlxColor.GREEN : FlxColor.BLUE;
+				new HelixSprite(null, { width:TILE_WIDTH, height:TILE_HEIGHT, colour: colour })
+					.move(x * TILE_WIDTH, y * TILE_HEIGHT);
+			}
+		}
 	}
 }

@@ -1,15 +1,15 @@
 package view;
 
+import flixel.FlxSprite;
 import flixel.util.FlxColor;
-import helix.core.HelixSprite;
 import hxnoise.Perlin;
 
 class PerlinNoiseGenerator {
-    public static function generateNoise(width:Int, height:Int):HelixSprite {
+    public static function generateNoise(width:Int, height:Int):FlxSprite {
         var perlin = new Perlin();
 
-        var toReturn = new HelixSprite(null, 
-            { width: width, height: height, colour: FlxColor.BLACK });
+        var toReturn = new FlxSprite();
+        toReturn.makeGraphic(width, height);
 
         var color:FlxColor;
         // 5-10
@@ -21,9 +21,9 @@ class PerlinNoiseGenerator {
                     5, 0.5, 0.25);
                 
                 if (c > 0.3 + (0.4 * distance_squared(x, y, width, height))) {
-                    color = FlxColor.GREEN;
+                    color = FlxColor.WHITE;
                 } else {
-                    color = FlxColor.BLUE;
+                    color = FlxColor.BLACK;
                 }
                 
                 toReturn.pixels.setPixel(x, y, color);
