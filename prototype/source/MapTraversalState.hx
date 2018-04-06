@@ -121,8 +121,14 @@ class MapTraversalState extends HelixState
 			for(x in 0...width) {
 				var c = map.pixels.getPixel(x, y);
 				var colour = c > 0 ? FlxColor.GREEN : FlxColor.BLUE;
-				new HelixSprite(null, { width:TILE_WIDTH, height:TILE_HEIGHT, colour: colour })
-					.move(x * TILE_WIDTH, y * TILE_HEIGHT);
+
+				var tile:HelixSprite;
+				if (colour == FlxColor.GREEN) {
+					tile = new HelixSprite(null, { width:TILE_WIDTH, height:TILE_HEIGHT, colour: colour });
+				} else {
+					tile = new Water(TILE_WIDTH, TILE_HEIGHT);
+				}
+				tile.move(x * TILE_WIDTH, y * TILE_HEIGHT);					
 			}
 		}
 	}

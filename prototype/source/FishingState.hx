@@ -74,7 +74,7 @@ class FishingHook extends HelixSprite {
     {
         super.update(elapsedSeconds);
         
-        if (FlxG.mouse.pressed)
+        if (FlxG.mouse.pressed || FlxG.keys.pressed.SPACE)
         {
             this.y -= Config.get("fishing").hook.buoyancy * elapsedSeconds;
         } else {

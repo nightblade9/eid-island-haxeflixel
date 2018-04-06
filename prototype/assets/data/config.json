@@ -28,8 +28,8 @@
         "hook": {
             "width": 40,
             "height": 60,
-            "gravity": 100,
-            "buoyancy": 125
+            "gravity": 150,
+            "buoyancy": 182
         },
         "reel": {
             "width": 16,
