@@ -7,6 +7,7 @@ import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxRandom;
 import flixel.text.FlxText;
+import flixel.tile.FlxTilemap;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 
@@ -29,6 +30,13 @@ class MapTraversalState extends HelixState
 	private static inline var FONT_SIZE:Int = 36;
 	private static inline var TILE_WIDTH:Int = 48;
 	private static inline var TILE_HEIGHT:Int = 48;
+
+	private static var TILE_INDICIES:Map<String, Int> = [
+		WATER_TILE => 1,
+		GRASS_TILE => 2
+	];
+	private static inline var WATER_TILE:String = "water";
+	private static inline var GRASS_TILE:String = "grass";
 
 	private var player:HelixSprite;
 	private var walls = new FlxGroup();
@@ -116,20 +124,19 @@ class MapTraversalState extends HelixState
 		var height = 25;
 
 		var map = PerlinNoiseGenerator.generateNoise(width, height);
+		var tileIndicies = new Array<Int>();
 
-		for(y in 0...height) {
-			for(x in 0...width) {
+		for (y in 0 ... height) {
+			for (x in 0 ... width) {
 				var c = map.pixels.getPixel(x, y);
-				var colour = c > 0 ? FlxColor.GREEN : FlxColor.BLUE;
-
-				var tile:HelixSprite;
-				if (colour == FlxColor.GREEN) {
-					tile = new HelixSprite(null, { width:TILE_WIDTH, height:TILE_HEIGHT, colour: colour });
-				} else {
-					tile = new Water(TILE_WIDTH, TILE_HEIGHT);
-				}
-				tile.move(x * TILE_WIDTH, y * TILE_HEIGHT);					
+				var tileType = c > 0 ? GRASS_TILE : WATER_TILE;
+				var tileId = TILE_INDICIES[tileType];
+				tileIndicies.push(tileId);
 			}
 		}
+		trace(tileIndicies);
+		var tileMap = new FlxTilemap();
+		tileMap.loadMapFromArray(tileIndicies, width, height, "assets/images/tiles.png", TILE_WIDTH, TILE_HEIGHT);
+		this.add(tileMap);
 	}
 }
